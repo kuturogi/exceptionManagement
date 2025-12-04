@@ -2,6 +2,9 @@ package com.bertugkuturoglu.service.impl;
 
 import com.bertugkuturoglu.dto.DtoDepartment;
 import com.bertugkuturoglu.dto.DtoEmployee;
+import com.bertugkuturoglu.exception.BaseException;
+import com.bertugkuturoglu.exception.ErrorMessage;
+import com.bertugkuturoglu.exception.MessageType;
 import com.bertugkuturoglu.model.Department;
 import com.bertugkuturoglu.model.Employee;
 import com.bertugkuturoglu.repository.EmployeeRepository;
@@ -27,7 +30,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
         Optional<Employee> optional = employeeRepository.findById(id);
         if (optional.isEmpty()){
-            return null;
+            throw new BaseException(new ErrorMessage(MessageType.NO_RECORD_EXIST, null));
         }
         Employee employee = optional.get();
         Department department = employee.getDepartment();
